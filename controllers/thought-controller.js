@@ -5,7 +5,7 @@ const thoughtController = {
     getAllThoughts(req, res) {
         Thought.find({})
         .populate({
-            path: 'user',
+            path: 'username',
             select: '-__v'
         })
         .select('-__v')
@@ -18,9 +18,9 @@ const thoughtController = {
     },
 
     getThoughtById({ params }, res) {
-        Thought.findOne({ _id: params.id })
+        Thought.findOne({ _id: params.thoughtId })
         .populate({
-            path: 'user',
+            path: 'username',
             select: '-__v'
         })
         .select('-__v')
@@ -41,7 +41,7 @@ const thoughtController = {
         Thought.create(body)
         .then(({_id}) => {
             return User.findOneAndUpdate(
-                { _id: params.userId },
+                { _id: body.userId },
                 { $push: { thoughts: _id } },
                 { new: true }
             );
@@ -61,7 +61,7 @@ const thoughtController = {
 
     updateThought({ params, body }, res) {
         Thought.findOneAndUpdate(
-            { _id: params.id },
+            { _id: params.thoughtId },
             body,
             { new: true, runValidators: true }
         )
@@ -84,18 +84,7 @@ const thoughtController = {
             if (!deletedThought) {
                 return res.status(404).json({ message: 'No thought found with this id!' });
             }
-            return User.findByIdAndUpdate(
-                { _id: params.userId },
-                { $pull: {thoughts: params.thoughtId }},
-                { new: true }
-            );
-        })
-        .then(dbUserData => {
-            if (!dbUserData) {
-                res.status(404).json({ message: 'No user found with this id!' });
-                return;
-            }
-            res.json(dbUserData);
+            res.json(deletedThought)
         })
         .catch(err => {
             console.log(err);
