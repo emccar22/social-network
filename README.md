@@ -8,6 +8,7 @@ This is a social network api built using express and mongoose to use mongoDB.
 
 * [Installation](#installation)
 * [Usage](#usage)
+* [Video Walkthrough](#video-walkthrough)
 * [Questions](#questions)
 
 ## Installation
@@ -17,6 +18,10 @@ To install please clone the repository onto your machine.  Then open in your cod
 ## Usage
 
 To use this api you must first start by running npm start in the command line from the root of the project.  Then you can go to localhost:3001/api and use either users or thoughts to view, create, update, remove.  Check in the api index file to see the routes you need to use.
+
+## Video Walkthrough
+
+https://drive.google.com/file/d/1yrcj0Sj5vGXMDqbo8T9NerK8_QkGONke/view
 
 ## Questions
 
